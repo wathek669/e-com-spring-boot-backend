@@ -1,4 +1,4 @@
-package com.example.wbcorps.ecom.services.jwt;
+package com.example.wbcorps.ecom.services.jwt.jwt;
 
 import com.example.wbcorps.ecom.entity.User;
 import com.example.wbcorps.ecom.repository.UserRepository;
