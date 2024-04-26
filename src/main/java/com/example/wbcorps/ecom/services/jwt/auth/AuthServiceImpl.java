@@ -6,32 +6,38 @@ import com.example.wbcorps.ecom.entity.User;
 import com.example.wbcorps.ecom.enums.UserRole;
 import com.example.wbcorps.ecom.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+import static java.rmi.server.LogStream.log;
 
+@Service
+@Slf4j
 public class AuthServiceImpl implements AuthService{
     @Autowired
     private UserRepository userRepository;
-
+    /*
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
-    }
+    }*/
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public UserDto createUser(SignupRequest signupRequest){
+    public User createUser(SignupRequest signupRequest){
         User user = new User();
         user.setEmail(signupRequest.getEmail());
-        user.setPassword(new BCryptPasswordEncoder().encode(signupRequest.getPassword()));
         user.setName(signupRequest.getName());
         user.setRole(UserRole.CUSTOMER);
-        User createdUser=userRepository.save(user);
-        UserDto userDto=new UserDto();
-        userDto.setId(createdUser.getId());
-        return userDto;
+        user.setPassword(new BCryptPasswordEncoder().encode(signupRequest.getPassword()));
+        ;
+        return userRepository.save(user);
+
+
     }
 
     public Boolean hasUserWithEmail(String email){
@@ -46,7 +52,7 @@ public class AuthServiceImpl implements AuthService{
             user.setEmail("admin@test.com");
             user.setName("admin");
             user.setRole(UserRole.ADMIN);
-            user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+            user.setPassword(passwordEncoder.encode("admin"));
             userRepository.save(user);
         }
 

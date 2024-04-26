@@ -6,9 +6,11 @@ import com.example.wbcorps.ecom.dto.UserDto;
 import com.example.wbcorps.ecom.entity.User;
 import com.example.wbcorps.ecom.repository.UserRepository;
 import com.example.wbcorps.ecom.services.jwt.auth.AuthService;
+import com.example.wbcorps.ecom.services.jwt.auth.AuthServiceImpl;
 import com.example.wbcorps.ecom.utils.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 import java.util.Optional;
-
+@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class AuthController {
@@ -33,9 +35,10 @@ public class AuthController {
     private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
-    private final AuthService authService;
+    private final AuthServiceImpl authService;
     public static final String HEADER_STRING ="Authorization";
     public static final String TOKEN_PREFIX="BEARER ";
+
 
     @RequestMapping("authenticate")
     public void createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest,
@@ -57,16 +60,19 @@ public class AuthController {
                     .put("role",optionalUser.get().getRole())
                     .toString()
             );
-            response.addHeader(HEADER_STRING,TOKEN_PREFIX);
+            response.addHeader("Access-Control-Expose-Headers","Authorization");
+            response.addHeader("Access-Control-Allow-Headers","Authorization, X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept, X-Custom-header ");
+            response.addHeader(HEADER_STRING,TOKEN_PREFIX+jwt);
         }
     }
     @PostMapping("/sign-up")
-    public ResponseEntity<?> signupRequest(SignupRequest signupRequest){
+    public ResponseEntity<?> signupRequest(@RequestBody SignupRequest signupRequest){
+        log.info("sdfgdfgdfg");
         if ( authService.hasUserWithEmail(signupRequest.getEmail()) ){
             return new ResponseEntity<>("User Already exist ", HttpStatus.NOT_ACCEPTABLE);
         }
-        UserDto userDto = authService.createUser(signupRequest);
-        return new ResponseEntity<>(userDto,HttpStatus.CREATED);
+        User user = authService.createUser(signupRequest);
+        return new ResponseEntity<>(user,HttpStatus.CREATED);
     }
 
     }
