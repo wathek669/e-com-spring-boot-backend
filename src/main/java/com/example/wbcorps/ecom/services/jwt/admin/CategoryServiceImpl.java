@@ -15,6 +15,6 @@ public class CategoryServiceImpl implements CategoryService{
         Category category= new Category() ;
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
-        return categoryRepository.save(category)
+        return categoryRepository.save(category);
     }
 }
