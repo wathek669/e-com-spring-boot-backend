@@ -1,6 +1,7 @@
 package com.example.wbcorps.ecom.services.jwt.jwt;
 
 import com.example.wbcorps.ecom.entity.User;
+import com.example.wbcorps.ecom.enums.UserRole;
 import com.example.wbcorps.ecom.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (optionalUser.isEmpty()) throw new UsernameNotFoundException("username not found ",null);
         return new org.springframework.security.core.userdetails.User(
                 optionalUser.get().getEmail(),optionalUser.get().getPassword(),new ArrayList<>());
+                }
 
-    }
+
 }

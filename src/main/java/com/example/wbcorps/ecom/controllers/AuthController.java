@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Optional;
 @Slf4j
 @RestController
@@ -65,6 +67,7 @@ public class AuthController {
             response.addHeader(HEADER_STRING,TOKEN_PREFIX+jwt);
         }
     }
+
     @PostMapping("/sign-up")
     public ResponseEntity<?> signupRequest(@RequestBody SignupRequest signupRequest){
         log.info("sdfgdfgdfg");
