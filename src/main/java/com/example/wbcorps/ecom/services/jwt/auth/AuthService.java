@@ -5,7 +5,7 @@ import com.example.wbcorps.ecom.dto.UserDto;
 import com.example.wbcorps.ecom.entity.User;
 
 public interface AuthService {
-    User createUser(SignupRequest signupRequest);
+    UserDto createUser(SignupRequest signupRequest);
 
     Boolean hasUserWithEmail(String email);
 }
