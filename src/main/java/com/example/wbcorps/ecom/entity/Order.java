@@ -23,9 +23,11 @@ public class Order {
     private Long totalAmount ;
     private Long discount ;
     private UUID trackingId ;
+
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private List<CartItems> cartItems ;
 

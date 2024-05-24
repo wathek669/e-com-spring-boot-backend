@@ -28,8 +28,8 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ProductRepository productRepository ;
     public ResponseEntity<?> addProductToCart(AddProductInCartDto addProductInCartDto){
-        Order activeOrder =  orderRepository.findByIdAndStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
-        Optional<CartItems> optionalCartItems = cartItemsRepository.findByProductOrderAndUserId
+        Order activeOrder =  orderRepository.findByUserIdAndOrderStatus(addProductInCartDto.getUserId(), OrderStatus.Pending);
+        Optional<CartItems> optionalCartItems = cartItemsRepository.findByProductIdAndOrderIdAndUserId
                 (addProductInCartDto.getProductId(),activeOrder.getId(),addProductInCartDto.getUserId());
         if(optionalCartItems.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null) ;
@@ -54,4 +54,6 @@ public class CartServiceImpl implements CartService {
             }
         }
     }
+
 }
+
