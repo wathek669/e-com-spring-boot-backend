@@ -1,7 +1,7 @@
 package com.example.wbcorps.ecom.controllers.customer;
 
 import com.example.wbcorps.ecom.dto.ProductDto;
-import com.example.wbcorps.ecom.services.jwt.customer.CustomerProductService;
+import com.example.wbcorps.ecom.services.jwt.customer.product.CustomerProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

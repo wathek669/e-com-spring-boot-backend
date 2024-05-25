@@ -1,4 +1,4 @@
-package com.example.wbcorps.ecom.services.jwt.customer;
+package com.example.wbcorps.ecom.services.jwt.customer.product;
 
 import com.example.wbcorps.ecom.dto.ProductDto;
 

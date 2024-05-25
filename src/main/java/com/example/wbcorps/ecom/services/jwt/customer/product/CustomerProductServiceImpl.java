@@ -1,4 +1,4 @@
-package com.example.wbcorps.ecom.services.jwt.customer;
+package com.example.wbcorps.ecom.services.jwt.customer.product;
 
 import com.example.wbcorps.ecom.dto.ProductDto;
 import com.example.wbcorps.ecom.entity.Product;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class CustomerProductServiceImpl implements CustomerProductService{
+public class CustomerProductServiceImpl implements CustomerProductService {
     private final ProductRepository productRepository;
 
     public List<ProductDto> getAllProducts(){

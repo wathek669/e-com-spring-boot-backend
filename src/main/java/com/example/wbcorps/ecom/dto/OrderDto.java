@@ -22,5 +22,7 @@ public class OrderDto {
     private Long discount ;
     private UUID trackingId ;
     private String username;
+    private String address ;
     private List<CartItemsDto> cartItems ;
+    private String couponName ;
 }
