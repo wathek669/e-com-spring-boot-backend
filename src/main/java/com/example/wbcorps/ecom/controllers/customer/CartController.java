@@ -1,13 +1,12 @@
 package com.example.wbcorps.ecom.controllers.customer;
 
 import com.example.wbcorps.ecom.dto.AddProductInCartDto;
+import com.example.wbcorps.ecom.dto.OrderDto;
 import com.example.wbcorps.ecom.services.jwt.customer.Cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/customer")
@@ -17,5 +16,11 @@ public class CartController {
     @PostMapping("/cart")
     public ResponseEntity<?> addProductToCart(@RequestBody AddProductInCartDto addProductInCartDto){
         return cartService.addProductToCart(addProductInCartDto) ;
+    }
+
+    @GetMapping("/cart/{userId}")
+    public ResponseEntity<?> addProductToCart(@PathVariable Long userId){
+        OrderDto orderDto =cartService.getCartByUserId(userId);
+        return ResponseEntity.status(HttpStatus.OK).body(orderDto);
     }
 }
